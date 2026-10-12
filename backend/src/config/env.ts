@@ -6,5 +6,5 @@ export const env = {
     DB_PORT: Number(process.env.DB_PORT) || 3306,
     DB_NAME: process.env.DB_NAME || "bicycle_shop",
     DB_USER: process.env.DB_USER || "root",
-    DB_PASSWORD: process.env.DB_PASSWORD || "12345",
+    DB_PASSWORD: process.env.DB_PASSWORD || "1234512345",
 };
