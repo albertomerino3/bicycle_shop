@@ -3,10 +3,14 @@ import { app } from "./app";
 
 import { sequelize } from "./config/database";
 import { env } from "./config/env";
-
 //importamos los modelos y así sequelize puede registrarlos
 import "./modules/bicycles/bicycle.model";
-// import "./modules/brands/brand.model";
+import "./modules/brands/brand.model";
+//importamos y ejecutamos la definición de asociaciones ENTRE MODELOS
+import { defineAssociations } from "./models/associations";
+
+defineAssociations(); //ejecutamos
+
 
 async function startServer() {
     try{        //arranca la apliWEB para que escuche en el puerto 3000
@@ -16,7 +20,8 @@ async function startServer() {
 
 
         await sequelize.sync({force: true}).then(() => {
-            console.log("Drop and re-sync db.");
+            console.log("Drop and re-sync db."); //muestra en consola si
+                                                //reconoce ambas tablas y la relación
         });
                 console.log("PASA POR AQUI 2");
 

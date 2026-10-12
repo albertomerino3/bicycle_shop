@@ -46,7 +46,7 @@ export class BicycleController {
         //extraermos los datos del cuerpo de la petición (req.body)
         //ahora extraemos 'brandId' en vez del texto de la marca
         try{
-            const { id, model, description, price, stock, brandId} = req.body;
+            const { model, description, price, stock, brandId} = req.body;
 
         //comprobamos que los campos obligatorios estén
         if (!model || price === undefined || !brandId) {

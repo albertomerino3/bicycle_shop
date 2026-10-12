@@ -1,6 +1,15 @@
 import { Bicycle } from "./bicycle.model";
 import { Brand } from "../brands/brand.model";
 
+//le añadimos la interfaz al crear la bicicleta
+interface CreateBicycleInput {
+    model: string;
+    description?: string;
+    price: number;
+    stock?: number;
+    brandId: number;
+}
+
 export class BicycleService {
 
     //OBTENER TODAS LAS BICICLETAS (y la marca asociada)
@@ -23,6 +32,7 @@ export class BicycleService {
             include: [
                 {
                     model: Brand,
+                    as: "brand", //nombre del alias de la relación(associations)
                 },
             ],
         });
@@ -30,14 +40,8 @@ export class BicycleService {
 
     //CREAR NUEVA BICICLETA
 
-    static async create(data: {
-        model: string;
-        description?: string | null;
-        price: number;
-        stock: number;
-        brandId: number; //clave foránea
-    }) {
-       return Bicycle.create(data as any); 
+    static async create(data: CreateBicycleInput) {
+        return await Bicycle.create(data as any);
     }
 
     //ACTUALIZAR UNA BICICLETA EXISTENTE
