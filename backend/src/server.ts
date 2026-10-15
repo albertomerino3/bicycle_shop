@@ -1,30 +1,27 @@
 import { app } from "./app";
-//impostar app que hemos exportado en app.ts
-
+//importar app que hemos exportado en app.ts
 import { sequelize } from "./config/database";
 import { env } from "./config/env";
-//importamos los modelos y así sequelize puede registrarlos
-import "./modules/bicycles/bicycle.model";
-import "./modules/brands/brand.model";
 //importamos y ejecutamos la definición de asociaciones ENTRE MODELOS
 import { defineAssociations } from "./models/associations";
 
-defineAssociations(); //ejecutamos
-
+//importamos los modelos y así sequelize puede registrarlos
+import "./modules/bicycles/bicycle.model";
+import "./modules/brands/brand.model";
 
 async function startServer() {
-    try{        //arranca la apliWEB para que escuche en el puerto 3000
+    try{        
+        defineAssociations(); //ejecutamos
+        
+        //arranca la apliWEB para que escuche en el puerto 3000
         console.log("PASA POR AQUI 1");
         await sequelize.authenticate();
         console.log("Conection to MySQL established.");
 
-
-        await sequelize.sync({force: true}).then(() => {
-            console.log("Drop and re-sync db."); //muestra en consola si
-                                                //reconoce ambas tablas y la relación
+        await sequelize.sync({ alter: true }).then(() => {
+            console.log("Database synchronized successfully.");
         });
-                console.log("PASA POR AQUI 2");
-
+        console.log("PASA POR AQUI 2");
         
         app.listen(env.PORT, () => {
             console.log(
@@ -41,6 +38,3 @@ async function startServer() {
 }
 
 startServer();  //se llama a la función
-
-//comando npm run dev para arrancar la API
-//nos da http://localhost:3000

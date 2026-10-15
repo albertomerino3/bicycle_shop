@@ -5,6 +5,7 @@
 
 //importamos el modelo BRAND para interactuar con la tabla 'brand de MYSQL
 import { Brand } from "./brand.model";
+import { Bicycle } from "../bicycles/bicycle.model";
 
 //exportamos la clase BrandService con métodos estáticos para no tener
 //que instanciarla con 'new'
@@ -25,6 +26,7 @@ export class BrandService {
         return Brand.findByPk(id);  //busca por Primary Key
     }
 
+
     //CREAR UNA NUEVA MARCA
     //ejecuta INSERT INTO en MYSQL con el nombre
     static async create(data: {name: string}) {
@@ -40,5 +42,16 @@ export class BrandService {
     //ejecuta DELETE FROM en MYSQL eliminando la fila correspondiente
     static async delete(brand: Brand) {
         await brand.destroy(); //elimina el registro de la BD
+    }
+
+    //BUSCAR marca con sus bicicletas (eager loading inverso)
+    static async findWithBicycles(id: number) {
+        include: [
+            {
+            model: Bicycle,
+            as: "bicycles",
+            attributes: ["id", "model", "price", "stock"],
+            },
+        ]
     }
 }

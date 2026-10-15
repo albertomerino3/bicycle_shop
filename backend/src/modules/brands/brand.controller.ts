@@ -9,31 +9,21 @@ import { Request, Response, NextFunction } from "express";
 
 //importamos el servicio de marcas para delegarle las operaciones a la BD
 import { BrandService } from "./brand.service";
+import { Brand } from "./brand.model";
 
 export class BrandController {
-    //GET /brands - devuelve la lista completa de marcas
-    static async getAll(req: Request, res: Response, next: NextFunction) {
-        try{
-            //convierte el ID de la URL (string) a número
-            const id = Number(req.params.id);
-
-            //busca la marca usando el servicio
-            const brand = await BrandService.findById(id);
-
-            //si no encuentra, responde error
-            if(!brand) {
-                res.status(404).json({ message: "marca no encontrada "});
-                return;
-            }
-
-            //devuelve la marca encontrada
-            res.json(brand);
+    //obtener todas las marcas
+    static async getAll(req: Request, res: Response, next: NextFunction){
+        try {
+            const brands = await Brand.findAll();
+            res.json(brands);
         } catch (error) {
             next(error);
         }
     }
 
-    //GET /brands/:id - devuelve una única marca x su ID
+
+    //obtener x id
     static async getById(req: Request, res: Response, next: NextFunction) {
         try{
             //convierte el ID de la URL a número

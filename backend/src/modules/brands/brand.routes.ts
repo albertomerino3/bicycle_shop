@@ -7,6 +7,7 @@
 
 import { Router } from "express";   //creador de enrutadores
 import { BrandController } from "./brand.controller";   //controlador de marcas
+import { BicycleController } from "../bicycles/bicycle.controller";
 //que manejará la lógica de  cada ruta
 
 const router = Router();

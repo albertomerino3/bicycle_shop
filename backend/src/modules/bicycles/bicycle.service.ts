@@ -19,7 +19,9 @@ export class BicycleService {
             include: [
                 {
                     model: Brand,
-                },
+                    as: "brand",
+                    attributes: [ "id", "name"]
+                }
             ],
             order: [["id", "ASC"]],
         });
@@ -37,6 +39,19 @@ export class BicycleService {
             ],
         });
     }
+
+    //añadir una eager loading query
+    static async findEagerlyById(id: number) {
+        return Bicycle.findByPk(id, {
+            include: [
+            {
+                model: Brand,
+                as: "brand"
+            }
+            ]
+        });
+        }
+
 
     //CREAR NUEVA BICICLETA
 

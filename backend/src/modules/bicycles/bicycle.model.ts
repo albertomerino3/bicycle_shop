@@ -23,7 +23,7 @@ export class Bicycle extends Model<
     declare stock: number;
 
     //clave foránea
-    declare brandId: ForeignKey<number>; //FK de la marca asociada
+    declare brandId: number; //FK de la marca asociada
 
     declare createdAt: CreationOptional<Date>;
     declare updatedAt: CreationOptional<Date>;
